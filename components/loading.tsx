@@ -1,13 +1,23 @@
-import { motion } from "framer-motion";
+import styled from "styled-components";
 
 export const Loading = () => (
-  <motion.div
-    animate={{
-      scale: [1, 1, 1, 1, 1],
-      rotate: [0, 0, 270, 270, 0],
-      borderRadius: ["20%", "20%", "50%", "50%", "20%"],
-    }}
-  >
-    🎵🌞🎵
-  </motion.div>
+  <Container>
+    <Spinner />
+    <div>
+      <h3>Loading..</h3>
+    </div>
+  </Container>
+);
+
+const Container = styled.div`
+  display: inlight-flex;
+  flex-direction: row;
+  height: 250px;
+  padding: 10px;
+`;
+
+const Spinner = () => (
+  <div>
+    <img style={{ width: "12px", height: "12px" }} src="/loading.gif"></img>
+  </div>
 );

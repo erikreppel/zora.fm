@@ -5,6 +5,8 @@ import { Row, Col } from "../components/layout";
 
 const Title = styled.h1`
   text-align: center;
+  display: flex;
+  justify-content: center;
 `;
 
 const Footer = styled.div`

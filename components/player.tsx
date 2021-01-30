@@ -6,6 +6,7 @@ import { Playlist } from "./playlist";
 import { WavyZorb } from "./zorb";
 import { Row, Col } from "./layout";
 import { ContentPlayer } from "./contentPlayer";
+import { Loading } from "./loading";
 
 const Button = styled.button`
   width: 50px;
@@ -18,8 +19,7 @@ export const Player = () => {
   if (mediaPlayer.currentTrack === undefined) {
     return (
       <div>
-        <WavyZorb />
-        <h3>Loading...</h3>
+        <Loading />
       </div>
     );
   }
