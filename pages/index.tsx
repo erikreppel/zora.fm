@@ -33,6 +33,8 @@ export default function Home() {
   const [media, setMedia] = useState(undefined);
   const [idx, setIndex] = useState(0);
 
+  const incIndex = () => idx + (1 % media.length);
+
   useEffect(() => {
     const fetchData = async () => {
       const playable = await playableMedia();
@@ -47,11 +49,11 @@ export default function Home() {
     <div>
       <Head>
         <title>zora.fm - tune sun tune</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="https://twemoji.maxcdn.com/2/svg/1f31e.svg" />
       </Head>
       <Media media={media} idx={idx} />
-      <button onClick={() => setIndex(idx + 1)}>⏮</button>
-      <button onClick={() => setIndex(idx + 1)}>⏭</button>
+      <button onClick={() => setIndex(incIndex())}>⏮</button>
+      <button onClick={() => setIndex(incIndex())}>⏭</button>
     </div>
   );
 }
