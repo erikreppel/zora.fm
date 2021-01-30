@@ -20,11 +20,10 @@ export default function Home() {
       <Head>
         <title>zora.fm - tune sun tune</title>
         <link rel="icon" href="https://twemoji.maxcdn.com/2/svg/1f31e.svg" />
-        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@programmer" />
         <meta name="twitter:title" content="zora.fm - 🎵🌞🎵" />
         <meta name="twitter:description" content="tune sun tune" />
-        <meta name="twitter:image" content="URL_FOR_YOUR_IMAGE" />
+        <meta name="twitter:image" content="https://zora.fm/zorafm.png" />
       </Head>
       <Title>🎵🌞🎵</Title>
       <Row>
