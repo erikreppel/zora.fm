@@ -30,6 +30,8 @@ export const ContentPlayer = ({ player }: ContentPlayerProps) => {
           controls
           onEnded={() => waitThen(100, player.nextTrack)}
         ></video>
+        <h3>{track.metadata.name || "untitled"}</h3>
+        <p>{track.metadata.description || "🎵🌞🎵"}</p>
       </div>
     );
   }
