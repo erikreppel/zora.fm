@@ -2,6 +2,27 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { getMedia, playableMedia } from "../data/gql";
 
+import styled from "styled-components";
+
+const Col = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  padding: 5px;
+`;
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+`;
+
+const Button = styled.button`
+  width: 50px;
+  height: 50px;
+`;
+
 const Media = ({ media, idx }) => {
   if (media === undefined) {
     return <h2>Loading...</h2>;
@@ -23,13 +44,18 @@ const Media = ({ media, idx }) => {
   }
   if (vibe.metadata.mimeType.split("/")[0] === "video") {
     return (
-      <div>
+      <div style={{ maxWidth: "800px", maxHeight: "auto" }}>
         <h3>
           `{idx} of {media.length}`
         </h3>
         <h4>{vibe.metadata.name || "untitled"}</h4>
         <h4>{vibe.metadata.description || "🎵🌞🎵"}</h4>
-        <video src={vibe.contentURI} autoPlay controls></video>
+        <video
+          style={{ maxWidth: "80%", maxHeight: "auto" }}
+          src={vibe.contentURI}
+          autoPlay
+          controls
+        ></video>
       </div>
     );
   }
@@ -54,7 +80,8 @@ export default function Home() {
   const [media, setMedia] = useState(undefined);
   const [idx, setIndex] = useState(0);
 
-  const incIndex = () => idx + (1 % media.length);
+  const incIndex = () => (idx < media.length ? idx + 1 : 0);
+  const decIndex = () => (idx > 0 ? idx - 1 : 0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,10 +97,19 @@ export default function Home() {
         <title>zora.fm - tune sun tune</title>
         <link rel="icon" href="https://twemoji.maxcdn.com/2/svg/1f31e.svg" />
       </Head>
-      <Media media={media} idx={idx} />
-      <Playlist media={media} idx={idx} />
-      <button onClick={() => setIndex(incIndex())}>⏮</button>
-      <button onClick={() => setIndex(incIndex())}>⏭</button>
+      <Row>
+        <Col>
+          <Media media={media} idx={idx} />
+          <Row>
+            <Button onClick={() => setIndex(decIndex())}>⏮</Button>
+            <Button onClick={() => setIndex(incIndex())}>⏭</Button>
+          </Row>
+        </Col>
+        <Col>
+          <h2>Songs</h2>
+          <Playlist media={media} idx={idx} />
+        </Col>
+      </Row>
     </div>
   );
 }

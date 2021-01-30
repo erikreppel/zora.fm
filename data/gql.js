@@ -2,7 +2,7 @@ import { request, gql } from "graphql-request";
 
 const contentQuery = gql`
   {
-    medias(orderBy: createdAtTimestamp) {
+    medias(orderBy: createdAtTimestamp, orderDirection: desc) {
       contentURI
       metadataURI
       creator {
