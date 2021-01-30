@@ -22,7 +22,6 @@ export const getMedia = async () => {
     "https://api.thegraph.com/subgraphs/name/ourzora/zora-v1",
     contentQuery
   );
-  console.log(data);
   return data;
 };
 
@@ -30,17 +29,23 @@ export const playableMedia = async () => {
   const allMedia = await getMedia();
   const playable = [];
   for (let media of allMedia.medias) {
-    const metadata = await (await fetch(media.metadataURI)).json();
-    media.metadata = metadata;
-    if (isPlayable(metadata)) {
-      playable.push(media);
+    try {
+      const header = await fetch(media.contentURI, { method: "HEAD" });
+      const contentType = header.headers.get("content-type");
+      const metadata = await (await fetch(media.metadataURI)).json();
+      metadata.mimeType = contentType;
+      media.metadata = metadata;
+      if (isPlayable(contentType)) {
+        playable.push(media);
+      }
+    } catch (err) {
+      console.error("error getting playable media", err);
     }
   }
-  console.log(playable);
   return playable;
 };
 
-const isPlayable = (metadata) => audioMimeTypes.includes(metadata.mimeType);
+const isPlayable = (mimeType) => audioMimeTypes.includes(mimeType);
 
 const audioMimeTypes = [
   "audio/mpeg",
@@ -48,4 +53,5 @@ const audioMimeTypes = [
   "video/ogg",
   "audio/wav",
   "audio/webm",
+  "video/mp4",
 ];
