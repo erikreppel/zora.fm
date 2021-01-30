@@ -6,7 +6,6 @@ import { Playlist } from "./playlist";
 import { WavyZorb } from "./zorb";
 import { Row, Col } from "./layout";
 import { ContentPlayer } from "./contentPlayer";
-import { Loading } from "./loading";
 
 const Button = styled.button`
   width: 50px;

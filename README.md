@@ -1,6 +1,8 @@
 # 🎵🌞🎵
 
-tune sun tune
+tune sun tune.
+
+Contributions welcome
 
 ### Development
 
