@@ -14,7 +14,7 @@ const Media = ({ media, idx }) => {
       <div>
         <h4>{vibe.metadata.name || "untitled"}</h4>
         <h4>{vibe.metadata.description || "🎵🌞🎵"}</h4>
-        <audio src={vibe.contentURI} autoPlay></audio>
+        <audio src={vibe.contentURI} autoPlay controls></audio>
       </div>
     );
   }
@@ -22,7 +22,7 @@ const Media = ({ media, idx }) => {
     return (
       <div>
         <h2>vibin to tv</h2>
-        <video src={vibe.contentURI} autoPlay></video>
+        <video src={vibe.contentURI} autoPlay controls></video>
       </div>
     );
   }
