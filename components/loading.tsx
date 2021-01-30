@@ -4,7 +4,7 @@ export const Loading = () => (
   <Container>
     <Spinner />
     <div>
-      <h3>Loading..</h3>
+      <h3>Loading.. (the blockchain is slow af)</h3>
     </div>
   </Container>
 );
