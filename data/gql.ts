@@ -1,8 +1,9 @@
 import { request, gql } from "graphql-request";
+import { Medias, Media } from "./types";
 
 const contentQuery = gql`
   {
-    medias(orderBy: createdAtTimestamp, orderDirection: desc) {
+    medias(first: 1000, orderBy: createdAtTimestamp, orderDirection: desc) {
       contentURI
       metadataURI
       creator {
@@ -17,7 +18,7 @@ const contentQuery = gql`
   }
 `;
 
-export const getMedia = async () => {
+const getMedia = async () => {
   const data = await request(
     "https://api.thegraph.com/subgraphs/name/ourzora/zora-v1",
     contentQuery
@@ -25,9 +26,11 @@ export const getMedia = async () => {
   return data;
 };
 
-export const playableMedia = async () => {
+export async function playableMedia(): Promise<Medias> {
   const allMedia = await getMedia();
-  const playable = [];
+  console.log("total amount of media", allMedia.medias.length);
+  const playable: Medias = [];
+
   for (let media of allMedia.medias) {
     try {
       const header = await fetch(media.contentURI, { method: "HEAD" });
@@ -35,15 +38,16 @@ export const playableMedia = async () => {
       const metadata = await (await fetch(media.metadataURI)).json();
       metadata.mimeType = contentType;
       media.metadata = metadata;
+
       if (isPlayable(contentType)) {
-        playable.push(media);
+        playable.push(media as Media);
       }
     } catch (err) {
       console.error("error getting playable media", err);
     }
   }
   return playable;
-};
+}
 
 const isPlayable = (mimeType) => audioMimeTypes.includes(mimeType);
 
