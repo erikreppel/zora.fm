@@ -21,7 +21,7 @@ export function useMediaPlayer(): MediaPlayer {
 
   useEffect(() => {
     const fetchData = async () => {
-      const playable = await playableMedia();
+      const playable = await playableMedia(false);
       setMedia(playable);
     };
     fetchData();
@@ -35,8 +35,8 @@ export function useMediaPlayer(): MediaPlayer {
     nextTrack,
     prevTrack,
     ready,
+    setTrackIndex,
     medias,
     trackIndex: index,
-    setTrackIndex,
   };
 }
