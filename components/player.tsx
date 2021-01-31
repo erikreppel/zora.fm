@@ -12,7 +12,6 @@ import * as themes from "./themes";
 export const Player = () => {
   const mediaPlayer = useMediaPlayer();
   const [theme, setTheme] = useState<themes.theme>(themes.colorWay);
-
   if (mediaPlayer.currentTrack === undefined) {
     return (
       <div>
@@ -45,7 +44,7 @@ export const Player = () => {
         <Footer>
           <div>
             <a href="https://github.com/erikreppel/zora.fm">src</a> |{" "}
-            <a href="https://twitter.com/programer">@programmer</a>
+            <a href="https://twitter.com/programmer">@programmer</a>
           </div>
           <div style={{ padding: "3px" }}>
             <themes.ThemeButton

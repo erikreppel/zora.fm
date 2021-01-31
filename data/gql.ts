@@ -26,10 +26,26 @@ const getMedia = async () => {
   return data;
 };
 
+const fetchMedia = async (media): Promise<Media[]> => {
+  try {
+    const header = await fetch(media.contentURI, { method: "HEAD" });
+    const contentType = header.headers.get("content-type");
+    const metadata = await (await fetch(media.metadataURI)).json();
+    metadata.mimeType = contentType;
+    media.metadata = metadata;
+
+    if (!isPlayable(contentType)) {
+      return [];
+    }
+    return [media];
+  } catch (err) {
+    return [];
+  }
+}
+
 export async function playableMedia(skipCache: boolean): Promise<Medias> {
   const allMedia = await getMedia();
   console.log("total amount of media", allMedia.medias.length);
-  const playable: Medias = [];
 
   if (!skipCache) {
     const cachedMedias = getCached();
@@ -38,23 +54,10 @@ export async function playableMedia(skipCache: boolean): Promise<Medias> {
     }
   }
 
-  for (let media of allMedia.medias) {
-    try {
-      const header = await fetch(media.contentURI, { method: "HEAD" });
-      const contentType = header.headers.get("content-type");
-      const metadata = await (await fetch(media.metadataURI)).json();
-      metadata.mimeType = contentType;
-      media.metadata = metadata;
+  const playable = (await Promise.all(allMedia.medias.map(media => fetchMedia(media)))).reduce((acc: Media[], curr: Media[]) => [...acc, ...curr], [])
 
-      if (isPlayable(contentType)) {
-        playable.push(media as Media);
-      }
-    } catch (err) {
-      console.error("error getting playable media", err);
-    }
-  }
-  setCache(playable);
-  return playable;
+  setCache(playable as Media[]);
+  return playable as Medias;
 }
 
 const isPlayable = (mimeType) => audioMimeTypes.includes(mimeType);
