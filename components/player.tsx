@@ -12,7 +12,6 @@ import * as themes from "./themes";
 export const Player = () => {
   const mediaPlayer = useMediaPlayer();
   const [theme, setTheme] = useState<themes.theme>(themes.colorWay);
-
   if (mediaPlayer.currentTrack === undefined) {
     return (
       <div>
