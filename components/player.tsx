@@ -11,8 +11,7 @@ import * as themes from "./themes";
 
 export const Player = () => {
   const mediaPlayer = useMediaPlayer();
-
-  const [theme, setTheme] = useState<themes.theme>(themes.night);
+  const [theme, setTheme] = useState<themes.theme>(themes.colorWay);
 
   if (mediaPlayer.currentTrack === undefined) {
     return (
@@ -129,5 +128,5 @@ const MainContainer = styled.div`
 `;
 
 const CreatorText = styled.div`
-  font-size: 14px;
+  font-size: 12px;
 `;
