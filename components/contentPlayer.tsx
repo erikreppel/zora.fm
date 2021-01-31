@@ -2,37 +2,70 @@ import { WavyZorb } from "./zorb";
 import { MediaPlayer } from "../data/content";
 import styled from "styled-components";
 
+const Button = styled.button`
+  width: 50px;
+  height: 50px;
+  font-size: 48px;
+  padding: 0;
+  border: none;
+  background: none;
+`;
+
+type ControlsProps = { prevTrack: () => void; nextTrack: () => void };
+const Controls = ({ prevTrack, nextTrack }: ControlsProps) => {
+  const ControlContainer = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 0px;
+  `;
+
+  return (
+    <ControlContainer>
+      <Button onClick={prevTrack}>⏮</Button>
+      <Button>🌞</Button>
+      <Button onClick={nextTrack}>⏭</Button>
+    </ControlContainer>
+  );
+};
+
+const PlayerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 80vh;
+`;
+
 type ContentPlayerProps = { player: MediaPlayer };
 export const ContentPlayer = ({ player }: ContentPlayerProps) => {
   const track = player.currentTrack!;
   if (isAudio(track)) {
     return (
-      <div>
+      <PlayerContainer>
         <WavyZorb />
         <h3>{track.metadata.name || "untitled"}</h3>
-        <p>{track.metadata.description || "🎵🌞🎵"}</p>
         <audio
           src={track.contentURI}
           autoPlay
           controls
           onEnded={() => waitThen(100, player.nextTrack)}
         ></audio>
-      </div>
+        <Controls prevTrack={player.prevTrack} nextTrack={player.nextTrack} />
+      </PlayerContainer>
     );
   }
   if (isVideo(track)) {
     return (
-      <div style={{ maxWidth: "800px", maxHeight: "800px" }}>
+      <PlayerContainer>
         <video
-          style={{ maxWidth: "80%", maxHeight: "auto" }}
+          style={{ width: "70%", height: "70%", maxHeight: "70vh" }}
           src={track.contentURI}
           autoPlay
           controls
           onEnded={() => waitThen(100, player.nextTrack)}
         ></video>
         <h3>{track.metadata.name || "untitled"}</h3>
-        <p>{track.metadata.description || "🎵🌞🎵"}</p>
-      </div>
+        <Controls prevTrack={player.prevTrack} nextTrack={player.nextTrack} />
+      </PlayerContainer>
     );
   }
   return <h1>Thats not a bop</h1>;
