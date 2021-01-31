@@ -44,7 +44,7 @@ export const Player = () => {
         <Footer>
           <div>
             <a href="https://github.com/erikreppel/zora.fm">src</a> |{" "}
-            <a href="https://twitter.com/programer">@programmer</a>
+            <a href="https://twitter.com/programmer">@programmer</a>
           </div>
           <div style={{ padding: "3px" }}>
             <themes.ThemeButton
