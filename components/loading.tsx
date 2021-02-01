@@ -8,6 +8,8 @@ export const Loading = () => {
     "The future takes time",
     "decentralized pirate radio",
     "I swear shits happening",
+    "Radical Access Memories",
+    "If you're seeing this after several messages...trust me, it's loading",
   ];
 
   const randMsg = () => msgs[Math.floor(Math.random() * msgs.length)];
