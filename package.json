@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start --port ${PORT-3000}"
+    "start": "next start --port ${PORT-3000}",
+    "export": "next build && next export && html-inline -i out/index.html -o bin/index.html -b out/"
   },
   "dependencies": {
     "@ensdomains/ensjs": "^2.0.0",
@@ -14,6 +15,7 @@
     "framer-motion": "^3.2.2-rc.1",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
+    "html-inline": "^1.2.0",
     "next": "10.0.6",
     "react": "17.0.1",
     "react-dom": "17.0.1",

@@ -10,7 +10,7 @@ export default function Home() {
     <Container>
       <Head>
         <title>zora.fm - tune sun tune</title>
-        <link rel="icon" href="https://twemoji.maxcdn.com/2/svg/1f31e.svg" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@programmer" />
         <meta name="twitter:title" content="zora.fm - 🎵🌞🎵" />
