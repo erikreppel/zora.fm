@@ -121,6 +121,7 @@ const Flex = styled.div`
 
 const MainContainer = styled.div`
   display: flex;
+  flex-wrap: wrap-reverse;
   justify-content: space-between;
   background: ${(props) => props.theme.contentContainer};
   flex-grow: 1;
