@@ -16,11 +16,14 @@
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "html-inline": "^1.2.0",
+    "minimist": "^1.2.5",
     "next": "10.0.6",
+    "node-fetch": "^2.6.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "styled-components": "^5.2.1",
-    "swr": "^0.4.1"
+    "swr": "^0.4.1",
+    "yargs-parser": "^13.1.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
