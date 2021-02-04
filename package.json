@@ -7,11 +7,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start --port ${PORT-3000}",
-    "export": "next build && next export && html-inline -i out/index.html -o bin/index.html -b out/"
+    "export": "next build && next export && html-inline -i out/index.html -o bin/index.html -b out/",
+    "mint": "node bin/mint.js"
   },
   "dependencies": {
     "@ensdomains/ensjs": "^2.0.0",
     "@zoralabs/zdk": "^1.0.3",
+    "ethers": "^5.0.27",
     "framer-motion": "^3.2.2-rc.1",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
