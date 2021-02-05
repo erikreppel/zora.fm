@@ -23,12 +23,9 @@ export const Player = () => {
     <ThemeProvider theme={theme}>
       <Flex>
         <Header>
-          <Title>🎵🌞🎵</Title>
+          <Title>~ 🎵🌞🎵 ~</Title>
         </Header>
         <MainContainer>
-          <SongPane size={1}>
-            <Playlist player={mediaPlayer} />
-          </SongPane>
           <ContentContainer size={3}>
             <ContentPlayer player={mediaPlayer} />
           </ContentContainer>
@@ -40,6 +37,10 @@ export const Player = () => {
               - {mediaPlayer.currentTrack?.creator.id || "loading.."}
             </CreatorText>
           </Description>
+          <SongPane size={1}>
+            <h3 style={{ margin: "5px"}}>Up Next</h3>
+            <Playlist player={mediaPlayer} />
+          </SongPane>
         </MainContainer>
         <Footer>
           <div>
@@ -77,11 +78,14 @@ const ContentContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px; 
   background: ${(props) => props.theme.contentContainer};
 `;
 const Footer = styled.div`
   display: flex;
   flex-direction: row;
+  flex-shrink: 0;
   justify-content: space-between;
   align-items: center;
   background: ${(props) => props.theme.footer};
@@ -89,6 +93,7 @@ const Footer = styled.div`
   padding-botton: 5px;
   padding-left: 10px;
   padding-right: 10px;
+
 `;
 
 const Title = styled.p`
@@ -106,6 +111,7 @@ const Description = styled.div`
   flex: ${(props) => props.size};
   background: ${(props) => props.theme.description};
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   padding: 20px;
   justify-content: center;
@@ -121,7 +127,7 @@ const Flex = styled.div`
 
 const MainContainer = styled.div`
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;     // <- this
   justify-content: space-between;
   background: ${(props) => props.theme.contentContainer};
   flex-grow: 1;
