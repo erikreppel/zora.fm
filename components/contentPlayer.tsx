@@ -95,7 +95,7 @@ const BidButton = ({ media }: BidButtonProps) => {
     background: none;
     border-radius: 5px;
     font-size: 18px;
-    margin: 15px;
+    margin: 10px;
     font-weight: 800;
   `;
   const url = `https://zora.co/${media.owner.id}/${media.id}/`;
