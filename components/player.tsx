@@ -1,17 +1,14 @@
 import { useMediaPlayer, MediaPlayer } from "../data/content";
-import { useState, useEffect, useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { Playlist } from "./playlist";
-import { WavyZorb } from "./zorb";
-import { Row, Col } from "./layout";
 import { ContentPlayer } from "./contentPlayer";
 import { Loading } from "./loading";
-import * as themes from "./themes";
+import { useTheme } from "./themes";
 
 export const Player = () => {
   const mediaPlayer = useMediaPlayer();
-  const [theme, setTheme] = useState<themes.theme>(themes.colorWay);
+  const [theme, ThemePicker] = useTheme();
   if (mediaPlayer.currentTrack === undefined) {
     return (
       <div>
@@ -38,7 +35,7 @@ export const Player = () => {
             </CreatorText>
           </Description>
           <SongPane size={1}>
-            <h3 style={{ margin: "5px"}}>Up Next</h3>
+            <h3 style={{ margin: "5px" }}>Up Next</h3>
             <Playlist player={mediaPlayer} />
           </SongPane>
         </MainContainer>
@@ -47,20 +44,7 @@ export const Player = () => {
             <a href="https://github.com/erikreppel/zora.fm">src</a> |{" "}
             <a href="https://twitter.com/programmer">@programmer</a>
           </div>
-          <div style={{ padding: "3px" }}>
-            <themes.ThemeButton
-              theme={themes.colorWay}
-              onClick={() => setTheme(themes.colorWay)}
-            />
-            <themes.ThemeButton
-              theme={themes.night}
-              onClick={() => setTheme(themes.night)}
-            />
-            <themes.ThemeButton
-              theme={themes.light}
-              onClick={() => setTheme(themes.light)}
-            />
-          </div>
+          <ThemePicker />
         </Footer>
       </Flex>
     </ThemeProvider>
@@ -79,7 +63,7 @@ const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 20px;
-  padding-bottom: 20px; 
+  padding-bottom: 20px;
   background: ${(props) => props.theme.contentContainer};
 `;
 const Footer = styled.div`
@@ -93,7 +77,6 @@ const Footer = styled.div`
   padding-botton: 5px;
   padding-left: 10px;
   padding-right: 10px;
-
 `;
 
 const Title = styled.p`
@@ -127,7 +110,7 @@ const Flex = styled.div`
 
 const MainContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;     // <- this
+  flex-wrap: wrap; // <- this
   justify-content: space-between;
   background: ${(props) => props.theme.contentContainer};
   flex-grow: 1;

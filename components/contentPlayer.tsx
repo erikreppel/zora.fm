@@ -1,5 +1,6 @@
 import { WavyZorb } from "./zorb";
 import { MediaPlayer } from "../data/content";
+import { Media } from "../data/types";
 import styled from "styled-components";
 
 const Button = styled.button`
@@ -50,6 +51,7 @@ export const ContentPlayer = ({ player }: ContentPlayerProps) => {
           onEnded={() => waitThen(100, player.nextTrack)}
         ></audio>
         <Controls prevTrack={player.prevTrack} nextTrack={player.nextTrack} />
+        <BidButton media={track} />
       </PlayerContainer>
     );
   }
@@ -65,6 +67,7 @@ export const ContentPlayer = ({ player }: ContentPlayerProps) => {
         ></video>
         <h3>{track.metadata.name || "untitled"}</h3>
         <Controls prevTrack={player.prevTrack} nextTrack={player.nextTrack} />
+        <BidButton media={track} />
       </PlayerContainer>
     );
   }
@@ -85,3 +88,20 @@ async function waitThen(ms: number, fn: () => void) {
   await sleep(ms);
   fn();
 }
+
+type BidButtonProps = { media: Media };
+const BidButton = ({ media }: BidButtonProps) => {
+  const Button = styled.button`
+    background: none;
+    border-radius: 5px;
+    font-size: 18px;
+    margin: 15px;
+    font-weight: 800;
+  `;
+  const url = `https://zora.co/${media.owner.id}/${media.id}/`;
+  return (
+    <a href={url} target="_blank">
+      <Button>💵 Bid 💵</Button>
+    </a>
+  );
+};
