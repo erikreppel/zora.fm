@@ -41,7 +41,7 @@ const fetchMedia = async (media): Promise<Media[]> => {
   } catch (err) {
     return [];
   }
-}
+};
 
 export async function playableMedia(skipCache: boolean): Promise<Medias> {
   const allMedia = await getMedia();
@@ -54,22 +54,18 @@ export async function playableMedia(skipCache: boolean): Promise<Medias> {
     }
   }
 
-  const playable = (await Promise.all(allMedia.medias.map(media => fetchMedia(media)))).reduce((acc: Media[], curr: Media[]) => [...acc, ...curr], [])
+  const playable = (
+    await Promise.all(allMedia.medias.map((media) => fetchMedia(media)))
+  ).reduce((acc: Media[], curr: Media[]) => [...acc, ...curr], []);
 
   setCache(playable as Media[]);
   return playable as Medias;
 }
 
-const isPlayable = (mimeType) => audioMimeTypes.includes(mimeType);
+const isPlayable = (mimeType) =>
+  audioMimeTypes.includes(mimeType.split("/")[0]);
 
-const audioMimeTypes = [
-  "audio/mpeg",
-  "video/mpeg",
-  "video/ogg",
-  "audio/wav",
-  "audio/webm",
-  "video/mp4",
-];
+const audioMimeTypes = ["audio", "video"];
 
 interface CachedMedias {
   medias: Medias;
