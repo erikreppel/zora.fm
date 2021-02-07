@@ -51,7 +51,6 @@ export const ContentPlayer = ({ player }: ContentPlayerProps) => {
           onEnded={() => waitThen(100, player.nextTrack)}
         ></audio>
         <Controls prevTrack={player.prevTrack} nextTrack={player.nextTrack} />
-        <BidButton media={track} />
       </PlayerContainer>
     );
   }
@@ -67,7 +66,6 @@ export const ContentPlayer = ({ player }: ContentPlayerProps) => {
         ></video>
         <h3>{track.metadata.name || "untitled"}</h3>
         <Controls prevTrack={player.prevTrack} nextTrack={player.nextTrack} />
-        <BidButton media={track} />
       </PlayerContainer>
     );
   }
@@ -88,20 +86,3 @@ async function waitThen(ms: number, fn: () => void) {
   await sleep(ms);
   fn();
 }
-
-type BidButtonProps = { media: Media };
-const BidButton = ({ media }: BidButtonProps) => {
-  const Button = styled.button`
-    background: none;
-    border-radius: 5px;
-    font-size: 18px;
-    margin: 10px;
-    font-weight: 800;
-  `;
-  const url = `https://zora.co/${media.owner.id}/${media.id}/`;
-  return (
-    <a href={url} target="_blank">
-      <Button>💵 Bid 💵</Button>
-    </a>
-  );
-};

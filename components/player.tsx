@@ -5,6 +5,7 @@ import { Playlist } from "./playlist";
 import { ContentPlayer } from "./contentPlayer";
 import { Loading } from "./loading";
 import { useTheme } from "./themes";
+import { TrackDescription } from "./trackDescription";
 
 export const Player = () => {
   const mediaPlayer = useMediaPlayer();
@@ -26,16 +27,9 @@ export const Player = () => {
           <ContentContainer size={3}>
             <ContentPlayer player={mediaPlayer} />
           </ContentContainer>
-          <Description size={1}>
-            <h3>
-              <i>"{mediaPlayer.currentTrack?.metadata.description}"</i>
-            </h3>
-            <CreatorText>
-              - {mediaPlayer.currentTrack?.creator.id || "loading.."}
-            </CreatorText>
-          </Description>
+          <TrackDescription size={1} track={mediaPlayer.currentTrack} />
           <SongPane size={1}>
-            <h3 style={{ margin: "5px" }}>Up Next</h3>
+            <SongTitle />
             <Playlist player={mediaPlayer} />
           </SongPane>
         </MainContainer>
@@ -50,6 +44,8 @@ export const Player = () => {
     </ThemeProvider>
   );
 };
+
+const SongTitle = () => <h3 style={{ margin: "5px" }}>Up Next</h3>;
 
 const SongPane = styled.aside`
   flex: ${(props) => props.size};
@@ -90,16 +86,6 @@ const Header = styled.div`
   justify-content: center;
 `;
 
-const Description = styled.div`
-  flex: ${(props) => props.size};
-  background: ${(props) => props.theme.description};
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  padding: 20px;
-  justify-content: center;
-`;
-
 const Flex = styled.div`
   display: flex;
   flex-direction: column;
@@ -114,8 +100,4 @@ const MainContainer = styled.div`
   justify-content: space-between;
   background: ${(props) => props.theme.contentContainer};
   flex-grow: 1;
-`;
-
-const CreatorText = styled.div`
-  font-size: 12px;
 `;
