@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Media } from "../data/types";
+import { utils } from "ethers";
 
 type TrackDescriptionProps = { size: number; track: Media };
 export const TrackDescription = ({ size, track }: TrackDescriptionProps) => {
@@ -19,9 +20,9 @@ export const TrackDescription = ({ size, track }: TrackDescriptionProps) => {
         <ByContainer>
           <b>Owned by:</b> {track?.owner.id}
         </ByContainer>
-        {/* <ButtonContainer>
+        <ButtonContainer>
           <BidButton media={track} />
-        </ButtonContainer> */}
+        </ButtonContainer>
       </ActionContainer>
     </Description>
   );
@@ -36,7 +37,10 @@ const BidButton = ({ media }: BidButtonProps) => {
     margin-top: 10px;
     font-weight: 700;
   `;
-  const url = `https://zora.co/${media.owner.id}/${media.id}/`;
+
+  const id = utils.getAddress(media.creator.id);
+
+  const url = `https://zora.co/${id}/${media.id}/`;
   return (
     <a href={url} target="_blank">
       <Button>💰 Bid 💰</Button>
