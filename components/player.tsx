@@ -8,8 +8,9 @@ import { useTheme } from "./themes";
 import { TrackDescription } from "./trackDescription";
 import { Help } from "./help";
 
-export const Player = () => {
-  const mediaPlayer = useMediaPlayer();
+type PlayerProps = { mediaPlayer?: MediaPlayer };
+export const Player = ({ mediaPlayer }: PlayerProps) => {
+  if (!mediaPlayer) mediaPlayer = useMediaPlayer();
   const [theme, ThemePicker] = useTheme();
   if (mediaPlayer.currentTrack === undefined) {
     return (

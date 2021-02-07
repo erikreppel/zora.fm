@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { playableMedia } from "./gql";
+import { playableMedia, getTrack } from "./gql";
 import { Media, Medias } from "./types";
 
 export interface MediaPlayer {
@@ -39,4 +39,11 @@ export function useMediaPlayer(): MediaPlayer {
     medias,
     trackIndex: index,
   };
+}
+
+export async function getTrackPlayer(trackId: string): Promise<Medias> {
+  const track = await getTrack(trackId);
+  const playable = await playableMedia(false);
+  playable.unshift(track);
+  return playable;
 }

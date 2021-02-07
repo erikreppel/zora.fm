@@ -28,7 +28,7 @@ export const Playlist = ({ player }: PlaylistProps) => {
   return (
     <PlaylistContainer>
       {player.medias.map((vibe, idx) => {
-        return <Track media={vibe} player={player} idx={idx} />;
+        return <Track key={idx} media={vibe} player={player} idx={idx} />;
       })}
     </PlaylistContainer>
   );
