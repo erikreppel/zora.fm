@@ -12,6 +12,7 @@ type PlayerProps = { mediaPlayer?: MediaPlayer };
 export const Player = ({ mediaPlayer }: PlayerProps) => {
   if (!mediaPlayer) mediaPlayer = useMediaPlayer();
   const [theme, ThemePicker] = useTheme();
+
   if (mediaPlayer.currentTrack === undefined) {
     return (
       <div>
@@ -19,6 +20,15 @@ export const Player = ({ mediaPlayer }: PlayerProps) => {
       </div>
     );
   }
+
+  if (typeof window !== "undefined" && window.history.replaceState) {
+    window.history.pushState(
+      { track: mediaPlayer.currentTrack.id },
+      `${mediaPlayer.currentTrack.id}`,
+      `/track/${mediaPlayer.currentTrack.id}`
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Flex>
