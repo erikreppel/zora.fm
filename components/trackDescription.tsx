@@ -45,7 +45,7 @@ const BidButton = ({ media }: BidButtonProps) => {
 };
 
 const ByContainer = styled.div`
-  padding-bottom: 3px;
+  padding-bottom: 8px;
 `;
 
 const ButtonContainer = styled.div`

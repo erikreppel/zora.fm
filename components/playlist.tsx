@@ -17,7 +17,7 @@ const TrackLink = styled.a`
 
 const PlaylistContainer = styled.div`
   overflow-y: auto;
-  height: 85vh;
+  height: 83vh;
   padding: 4px;
   margin-top: 5px;
 `;

@@ -1,9 +1,10 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { Player } from "../components/player";
-import { Row, Col } from "../components/layout";
 
-const Container = styled.div``;
+const Container = styled.div`
+  height: 100vh;
+`;
 
 export default function Home() {
   return (

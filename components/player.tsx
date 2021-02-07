@@ -6,6 +6,7 @@ import { ContentPlayer } from "./contentPlayer";
 import { Loading } from "./loading";
 import { useTheme } from "./themes";
 import { TrackDescription } from "./trackDescription";
+import { Help } from "./help";
 
 export const Player = () => {
   const mediaPlayer = useMediaPlayer();
@@ -21,7 +22,9 @@ export const Player = () => {
     <ThemeProvider theme={theme}>
       <Flex>
         <Header>
+          <Padding width="50px" />
           <Title>~ 🎵🌞🎵 ~</Title>
+          <Help />
         </Header>
         <MainContainer>
           <ContentContainer size={3}>
@@ -82,15 +85,16 @@ const Title = styled.p`
 
 const Header = styled.div`
   display: flex;
+  flex-direction: row;
   background: ${(props) => props.theme.header};
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 const Flex = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  height: 100%;
   color: ${(props) => props.theme.textColor};
 `;
 
@@ -100,4 +104,8 @@ const MainContainer = styled.div`
   justify-content: space-between;
   background: ${(props) => props.theme.contentContainer};
   flex-grow: 1;
+`;
+
+const Padding = styled.div`
+  width: ${(props) => props.width};
 `;
