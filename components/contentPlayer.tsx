@@ -1,5 +1,6 @@
 import { WavyZorb } from "./zorb";
 import { MediaPlayer } from "../data/content";
+import { Media } from "../data/types";
 import styled from "styled-components";
 
 const Button = styled.button`
