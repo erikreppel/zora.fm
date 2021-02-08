@@ -1,7 +1,7 @@
 import { MediaPlayer } from "../data/content";
 import { Media } from "../data/types";
 import styled from "styled-components";
-import ENS from "@ensdomains/ensjs";
+import { nameOrAddress } from "../data/eth";
 import { useEffect, useState } from "react";
 
 const TrackContainer = styled.div`
@@ -25,33 +25,44 @@ const PlaylistContainer = styled.div`
 export type PlaylistProps = { player: MediaPlayer };
 export const Playlist = ({ player }: PlaylistProps) => {
   if (player.medias === undefined) return <div></div>;
+  // const fullNames = player.medias.map((m) => m.creator.id);
+  // const [artistNames, setArtistNames] = useState<string[]>(
+  //   fullNames.map((n) => n.substring(0, 7))
+  // );
+
+  // useEffect(() => {
+  //   nameOrAddress(fullNames).then((r) => setArtistNames(r));
+  // }, []);
+
   return (
     <PlaylistContainer>
       {player.medias.map((vibe, idx) => {
-        return <Track key={idx} media={vibe} player={player} idx={idx} />;
+        return (
+          <Track
+            key={idx}
+            media={vibe}
+            player={player}
+            idx={idx}
+            // artistName={artistNames[idx]}
+          />
+        );
       })}
     </PlaylistContainer>
   );
 };
 
-type TrackProps = { media: Media; player: MediaPlayer; idx: number };
+type TrackProps = {
+  media: Media;
+  player: MediaPlayer;
+  idx: number;
+  artistName: string;
+};
 const Track = ({ media, player, idx }: TrackProps) => {
   const [name, setName] = useState<string>(media.creator.id || "🎵🌞🎵");
-
-  // useEffect(() => {
-  //   const searchName = async () => {
-  //     const ens = new ENS();
-  //     const ensName = await ens.getName(name);
-  //     console.log("ENS name", ensName);
-  //     if (ensName) setName(ensName);
-  //   };
-  //   searchName();
-  // }, []);
-
   return (
     <TrackContainer bold={idx == player.trackIndex}>
       <TrackLink onClick={() => player.setTrackIndex(idx)}>
-        {media.metadata.name || "untitled"} - {name.substring(0, 7)}
+        {media.metadata.name || "untitled"} - {media.creator.displayName}
       </TrackLink>
     </TrackContainer>
   );

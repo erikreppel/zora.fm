@@ -1,4 +1,5 @@
 import { request, gql } from "graphql-request";
+import { nameOrAddress } from "./eth";
 import { Medias, Media } from "./types";
 
 const getMedia = async () => {
@@ -26,17 +27,32 @@ const getMedia = async () => {
   return data;
 };
 
-const fetchMedia = async (media): Promise<Media[]> => {
+const fetchMedia = async (media: Media): Promise<Media[]> => {
   try {
     const header = await fetch(media.contentURI, { method: "HEAD" });
     const contentType = header.headers.get("content-type");
     if (!isPlayable(contentType)) {
       return [];
     }
-    const metadata = await (await fetch(media.metadataURI)).json();
-    metadata.mimeType = contentType;
-    media.metadata = metadata;
 
+    await Promise.all([
+      (await fetch(media.metadataURI)).json().then((metadata) => {
+        metadata.mimeType = contentType;
+        media.metadata = metadata;
+      }),
+      nameOrAddress(media.creator.id).then((name) => {
+        media.creator.displayName = name;
+        name.startsWith("0x")
+          ? (media.creator.displayNameLong = media.creator.id)
+          : (media.creator.displayNameLong = name);
+      }),
+      nameOrAddress(media.owner.id).then((name) => {
+        media.owner.displayName = name;
+        name.startsWith("0x")
+          ? (media.owner.displayNameLong = media.owner.id)
+          : (media.owner.displayNameLong = name);
+      }),
+    ]);
     return [media];
   } catch (err) {
     return [];

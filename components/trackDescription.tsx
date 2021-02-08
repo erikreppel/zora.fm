@@ -11,14 +11,16 @@ export const TrackDescription = ({ size, track }: TrackDescriptionProps) => {
         <h3>
           <i>"{track.metadata.description}"</i>
         </h3>
-        <CreatorText>- {track?.creator.id || "loading.."}</CreatorText>
+        <CreatorText>
+          - {track?.creator.displayNameLong || "loading.."}
+        </CreatorText>
       </div>
       <ActionContainer>
         <ByContainer>
-          <b>Created by:</b> {track?.creator.id}
+          <b>Created by:</b> {track?.creator.displayNameLong}
         </ByContainer>
         <ByContainer>
-          <b>Owned by:</b> {track?.owner.id}
+          <b>Owned by:</b> {track?.owner.displayNameLong}
         </ByContainer>
         <ButtonContainer>
           <BidButton media={track} />

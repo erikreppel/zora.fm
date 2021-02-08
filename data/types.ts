@@ -5,6 +5,7 @@ export interface Media {
   owner: User;
   creator: User;
   createdAtTimestamp: number;
+  metadataURI: string;
   // currentAsk:
   // currentBid
 }
@@ -13,6 +14,8 @@ export interface User {
   id: string;
   collection?: Media[];
   creations?: Media[];
+  displayName: string;
+  displayNameLong: string;
 }
 
 export interface MediaMetadata {
