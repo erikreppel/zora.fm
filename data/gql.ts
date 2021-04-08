@@ -5,7 +5,7 @@ import { Medias, Media } from "./types";
 const getMedia = async () => {
   const contentQuery = gql`
     {
-      medias(first: 1000, orderBy: createdAtTimestamp, orderDirection: desc) {
+      medias(first: 250, orderBy: createdAtTimestamp, orderDirection: desc) {
         id
         contentURI
         metadataURI
