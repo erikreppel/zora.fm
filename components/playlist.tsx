@@ -25,10 +25,10 @@ const PlaylistContainer = styled.div`
 export type PlaylistProps = { player: MediaPlayer };
 export const Playlist = ({ player }: PlaylistProps) => {
   if (player.medias === undefined) return <div></div>;
-  // const fullNames = player.medias.map((m) => m.creator.id);
-  // const [artistNames, setArtistNames] = useState<string[]>(
-  //   fullNames.map((n) => n.substring(0, 7))
-  // );
+  const fullNames = player.medias.map((m) => m.creator.id);
+  const [artistNames, setArtistNames] = useState<string[]>(
+    fullNames.map((n) => n.substring(0, 7))
+  );
 
   // useEffect(() => {
   //   nameOrAddress(fullNames).then((r) => setArtistNames(r));
@@ -43,7 +43,7 @@ export const Playlist = ({ player }: PlaylistProps) => {
             media={vibe}
             player={player}
             idx={idx}
-            // artistName={artistNames[idx]}
+            artistName={artistNames[idx]}
           />
         );
       })}
